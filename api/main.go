@@ -11,19 +11,16 @@ import (
 )
 
 func main() {
-
+	// * Initialize db and validator
 	db := config.NewDB()
 	validate := validator.New()
 
+	// * Initialize category
 	categoryRepository := repository.NewCategoryRepository()
 	categoryService := service.NewCategoryService(categoryRepository, db, validate)
 	categoryController := controller.NewCategoryController(categoryService)
 
-	// router := gin.Default()
-
-	// router.GET("/api/categories", categoryController.FindAll)
-
+	// * Initialize router
 	router := router.NewRouter(categoryController)
-
 	router.Run()
 }
